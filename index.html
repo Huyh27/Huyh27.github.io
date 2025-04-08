@@ -451,11 +451,22 @@
         document.head.appendChild(customFont);
     }());
 </script>
+<div id="particles-js"></div>
+
+<script src=https://huyh27.github.io/background/particles.min.js></script>
+<script>
+  particlesJS.load('particles-js', "https://huyh27.github.io/background/particlesjs-config.json", function() {
+    console.log('particles.js loaded - callback');
+  });
+</script>
+
 <style>
-  body {
-    background: url(https://huyh27.github.io/background/7a06921be7060176@middle.jfif) no-repeat center top;
-    background-size: cover;
-    background-attachment: fixed;
+  #particles-js {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: -1;
   }
 </style>
 
