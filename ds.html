@@ -1,0 +1,1614 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>早读养小树 - 朗朗书声激励系统</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #e6f7ff 0%, #f0f9eb 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #2d5016;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            color: #2d5016;
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            color: #4a7c2a;
+            margin-bottom: 20px;
+        }
+        
+        .slogan-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            border-left: 6px solid #4a7c2a;
+        }
+        
+        .slogan {
+            font-size: 1.8rem;
+            color: #2d5016;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .slogan i {
+            color: #ff9800;
+            margin: 0 10px;
+        }
+        
+        .main-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .control-panel {
+            flex: 1;
+            min-width: 300px;
+            background-color: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .garden-container {
+            flex: 2;
+            min-width: 300px;
+            background-color: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 500px;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            color: #2d5016;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e8f5e9;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-title i {
+            margin-right: 10px;
+            color: #4a7c2a;
+        }
+        
+        .db-meter {
+            background: linear-gradient(to right, #4caf50, #ff9800, #f44336);
+            height: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .db-level {
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            width: 0%;
+            transition: width 0.3s;
+        }
+        
+        .db-value {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: bold;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            font-size: 1.2rem;
+        }
+        
+        .target-control {
+            margin: 25px 0;
+        }
+        
+        .target-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .target-value {
+            font-weight: bold;
+            color: #4a7c2a;
+            font-size: 1.2rem;
+        }
+        
+        .slider-container {
+            position: relative;
+            height: 40px;
+        }
+        
+        input[type="range"] {
+            width: 100%;
+            height: 10px;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background: #e0e0e0;
+            border-radius: 5px;
+            outline: none;
+        }
+        
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #4a7c2a;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        input[type="range"]::-moz-range-thumb {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #4a7c2a;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            border: none;
+        }
+        
+        .time-indicator {
+            margin-top: 30px;
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .time-bar {
+            height: 10px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+        
+        .time-progress {
+            height: 100%;
+            background-color: #4a7c2a;
+            width: 0%;
+            transition: width 0.5s;
+        }
+        
+        .garden {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-end;
+            min-height: 350px;
+            width: 100%;
+            padding: 20px;
+            background-color: #f9fdf5;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .tree {
+            margin: 0 15px;
+            transition: transform 0.5s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .apple-tree {
+            width: 70px;
+            height: 100px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .tree-trunk {
+            width: 12px;
+            height: 50px;
+            background-color: #8b4513;
+            border-radius: 3px;
+            z-index: 1;
+        }
+        
+        .tree-crown {
+            width: 60px;
+            height: 50px;
+            background-color: #4a7c2a;
+            border-radius: 50% 50% 40% 40%;
+            position: relative;
+            margin-bottom: -10px;
+            z-index: 2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .apple {
+            width: 12px;
+            height: 12px;
+            background-color: #ff4444;
+            border-radius: 50%;
+            position: absolute;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            animation: apple-glow 2s infinite alternate;
+        }
+        
+        @keyframes apple-glow {
+            0% { transform: scale(1); box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+            100% { transform: scale(1.1); box-shadow: 0 3px 6px rgba(0,0,0,0.3); }
+        }
+        
+        .apple-1 { top: 15px; left: 15px; }
+        .apple-2 { top: 10px; right: 20px; }
+        .apple-3 { bottom: 15px; left: 20px; }
+        
+        .large-tree {
+            width: 120px;
+            height: 180px;
+        }
+        
+        .large-tree .tree-trunk {
+            width: 25px;
+            height: 90px;
+            border-radius: 5px;
+        }
+        
+        .large-tree .tree-crown {
+            width: 110px;
+            height: 90px;
+            border-radius: 50% 50% 40% 40%;
+            margin-bottom: -15px;
+        }
+        
+        .large-tree .apple {
+            width: 18px;
+            height: 18px;
+        }
+        
+        .large-tree .apple-1 { top: 20px; left: 25px; }
+        .large-tree .apple-2 { top: 15px; right: 30px; }
+        .large-tree .apple-3 { bottom: 20px; left: 30px; }
+        .large-tree .apple-4 { top: 40px; left: 40px; }
+        .large-tree .apple-5 { bottom: 30px; right: 35px; }
+        
+        .status-message {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+            background-color: #f0f9ff;
+            border-left: 5px solid #4a7c2a;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+        
+        .instructions {
+            background-color: #f9fdf5;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+            border-left: 5px solid #ff9800;
+        }
+        
+        .instructions h3 {
+            margin-bottom: 10px;
+            color: #2d5016;
+        }
+        
+        .instructions ul {
+            padding-left: 20px;
+        }
+        
+        .instructions li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+        
+        .mic-status {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 8px;
+            background-color: #f5f5f5;
+        }
+        
+        .mic-icon {
+            width: 40px;
+            height: 40px;
+            background-color: #4a7c2a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        .button {
+            background-color: #4a7c2a;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        
+        .button:hover {
+            background-color: #3a641a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .button i {
+            margin-right: 8px;
+        }
+        
+        .button.reset {
+            background-color: #f44336;
+        }
+        
+        .button.reset:hover {
+            background-color: #d32f2f;
+        }
+        
+        .button.retry {
+            background-color: #ff9800;
+        }
+        
+        .button.retry:hover {
+            background-color: #e68900;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .slogan {
+                font-size: 1.5rem;
+            }
+            
+            .control-panel, .garden-container {
+                min-width: 100%;
+            }
+            
+            .tree {
+                margin: 0 8px;
+            }
+            
+            .apple-tree {
+                width: 60px;
+                height: 90px;
+            }
+            
+            .large-tree {
+                width: 100px;
+                height: 160px;
+            }
+        }
+        
+        .tree-counter {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+        }
+        
+        .tree-counter i {
+            margin-right: 8px;
+            color: #4a7c2a;
+        }
+        
+        .hidden {
+            opacity: 0;
+            transform: scale(0.5);
+        }
+        
+        .visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .pulse {
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .growth-animation {
+            animation: grow 0.8s ease-out;
+        }
+        
+        @keyframes grow {
+            0% { transform: scale(0.2); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #4a7c2a;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            transform: translateX(150%);
+            transition: transform 0.3s ease;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        .notification i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .apple-counter {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+        }
+        
+        .apple-counter i {
+            margin-right: 8px;
+            color: #ff4444;
+        }
+        
+        .volume-visualizer {
+            width: 100%;
+            height: 60px;
+            background-color: #f5f5f5;
+            border-radius: 8px;
+            margin: 15px 0;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .waveform {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .calibration-panel {
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            border: 1px dashed #ccc;
+        }
+        
+        .calibration-panel h4 {
+            margin-bottom: 10px;
+            color: #2d5016;
+            font-size: 1rem;
+        }
+        
+        .calibration-info {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .accessibility-info {
+            margin-top: 20px;
+            font-size: 0.8rem;
+            color: #666;
+            text-align: center;
+        }
+        
+        .aria-label {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-apple-alt" aria-hidden="true"></i> <span class="aria-label">早读养小树</span>早读养小树</h1>
+            <p class="subtitle">朗朗书声，苹果满树；茁壮成长，硕果累累</p>
+        </header>
+        
+        <div class="slogan-container">
+            <p class="slogan"><i class="fas fa-quote-left" aria-hidden="true"></i> 大声朗读，让小苹果树听见你的声音 <i class="fas fa-quote-right" aria-hidden="true"></i></p>
+        </div>
+        
+        <div class="main-content">
+            <div class="control-panel">
+                <h2 class="section-title"><i class="fas fa-sliders-h" aria-hidden="true"></i> 分贝控制面板</h2>
+                
+                <div class="mic-status" role="status" aria-live="polite">
+                    <div class="mic-icon">
+                        <i class="fas fa-microphone" aria-hidden="true"></i>
+                    </div>
+                    <div>
+                        <div>麦克风状态: <span id="micStatus">等待授权</span></div>
+                        <div>当前音量: <span id="currentDb">0</span> 分贝</div>
+                    </div>
+                </div>
+                
+                <div class="volume-visualizer">
+                    <canvas id="waveformCanvas" class="waveform" aria-label="音量波形图"></canvas>
+                </div>
+                
+                <div class="db-meter" role="meter" aria-valuemin="0" aria-valuemax="60" aria-valuenow="0" aria-label="音量分贝计">
+                    <div class="db-level" id="dbLevel"></div>
+                    <div class="db-value" id="dbValue">0 分贝</div>
+                </div>
+                
+                <div class="target-control">
+                    <div class="target-label">
+                        <span>目标分贝设定:</span>
+                        <span class="target-value" id="targetValue">30 分贝</span>
+                    </div>
+                    <div class="slider-container">
+                        <input type="range" id="dbTarget" min="10" max="60" value="30" step="5" aria-label="目标分贝设定滑块">
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-top: 5px; font-size: 0.9rem;">
+                        <span>10分贝</span>
+                        <span>35分贝</span>
+                        <span>60分贝</span>
+                    </div>
+                </div>
+                
+                <div class="time-indicator">
+                    <div>持续时间: <span id="timeCount">0</span> / 30 秒</div>
+                    <div class="time-bar">
+                        <div class="time-progress" id="timeProgress"></div>
+                    </div>
+                    <div style="margin-top: 8px; font-size: 0.9rem;">
+                        <span id="timeStatus">请大声朗读以达到目标分贝</span>
+                    </div>
+                </div>
+                
+                <div class="calibration-panel">
+                    <h4><i class="fas fa-tools" aria-hidden="true"></i> 音量校准</h4>
+                    <div class="calibration-info" id="calibrationInfo">
+                        当前环境噪音基准: <span id="noiseBase">0</span> 分贝
+                    </div>
+                    <button class="button" id="calibrateBtn">
+                        <i class="fas fa-compress-arrows-alt" aria-hidden="true"></i> 校准环境噪音
+                    </button>
+                </div>
+                
+                <div style="margin-top: 25px; display: flex; gap: 15px; flex-wrap: wrap;">
+                    <button class="button" id="startBtn" aria-label="开始监测麦克风音量">
+                        <i class="fas fa-play" aria-hidden="true"></i> 开始监测
+                    </button>
+                    <button class="button retry" id="retryBtn" style="display: none;" aria-label="重新请求麦克风权限">
+                        <i class="fas fa-microphone-alt" aria-hidden="true"></i> 重新授权
+                    </button>
+                    <button class="button reset" id="resetBtn" aria-label="重置花园">
+                        <i class="fas fa-redo" aria-hidden="true"></i> 重置花园
+                    </button>
+                </div>
+            </div>
+            
+            <div class="garden-container">
+                <h2 class="section-title"><i class="fas fa-tree" aria-hidden="true"></i> 我的朗读苹果园</h2>
+                
+                <div class="tree-counter">
+                    <i class="fas fa-tree" aria-hidden="true"></i> <span id="treeCount">0</span> 棵苹果树
+                </div>
+                
+                <div class="apple-counter">
+                    <i class="fas fa-apple-alt" aria-hidden="true"></i> <span id="appleCount">0</span> 个苹果
+                </div>
+                
+                <div class="garden" id="garden" role="region" aria-label="苹果园">
+                    <!-- 苹果树将在这里动态生成 -->
+                    <div id="noTreesMessage" style="text-align: center; color: #999; font-style: italic; padding: 40px;">
+                        <i class="fas fa-seedling" style="font-size: 3rem; margin-bottom: 15px; display: block;" aria-hidden="true"></i>
+                        <p>果园里还没有苹果树<br>大声朗读让第一棵苹果树长出来吧！</p>
+                    </div>
+                </div>
+                
+                <div class="status-message" id="statusMessage" role="status" aria-live="polite">
+                    准备好开始大声朗读了吗？点击"开始监测"按钮，当你的朗读声达到目标分贝并持续30秒，苹果树就会长出来！
+                </div>
+            </div>
+        </div>
+        
+        <div class="instructions">
+            <h3><i class="fas fa-info-circle" aria-hidden="true"></i> 使用说明</h3>
+            <ul>
+                <li><strong>目标分贝调节</strong>：教师可以使用滑块调节需要达到的目标分贝值（10-60分贝）</li>
+                <li><strong>苹果树生长规则</strong>：当朗读声音达到目标分贝并持续30秒，就会长出一棵苹果树</li>
+                <li><strong>苹果树消失规则</strong>：当声音低于10分贝并持续30秒，会消失一棵苹果树</li>
+                <li><strong>大苹果树生成规则</strong>：当积累到5棵小苹果树时，它们会合并成一棵大苹果树（小树被移除）</li>
+                <li><strong>分贝监测</strong>：系统会通过麦克风实时监测你的朗读音量</li>
+                <li><strong>苹果计数</strong>：每棵苹果树上都有苹果，总数会显示在左上角</li>
+                <li><strong>提示</strong>：请确保允许网页访问麦克风，并在安静环境下使用以获得最佳效果</li>
+                <li><strong>音量校准</strong>：点击"校准环境噪音"按钮可校准当前环境的基准音量</li>
+            </ul>
+        </div>
+        
+        <div class="accessibility-info">
+            <i class="fas fa-universal-access" aria-hidden="true"></i> 此页面支持屏幕阅读器访问
+        </div>
+    </div>
+
+    <!-- 通知提示 -->
+    <div class="notification" id="notification" role="alert" aria-live="assertive">
+        <i class="fas fa-check-circle" aria-hidden="true"></i>
+        <span id="notificationText">操作成功</span>
+    </div>
+
+    <script>
+        // 全局变量
+        let audioContext;
+        let analyser;
+        let microphone;
+        let isMonitoring = false;
+        let currentDb = 0;
+        let targetDb = 30;
+        let aboveThresholdTime = 0;
+        let belowThresholdTime = 0;
+        let treeCount = 0;
+        let appleCount = 0;
+        let treeElements = [];
+        let monitoringAnimationFrame = null;
+        let noiseBaseLevel = 0;
+        let calibrated = false;
+        let animationId = null;
+        let waveformCanvas, waveformCtx;
+        
+        // 本地存储键名
+        const STORAGE_KEY = 'gardenState_v2';
+        
+        // DOM元素
+        const micStatus = document.getElementById('micStatus');
+        const currentDbElement = document.getElementById('currentDb');
+        const dbValue = document.getElementById('dbValue');
+        const dbLevel = document.getElementById('dbLevel');
+        const targetValue = document.getElementById('targetValue');
+        const dbTarget = document.getElementById('dbTarget');
+        const timeCount = document.getElementById('timeCount');
+        const timeProgress = document.getElementById('timeProgress');
+        const timeStatus = document.getElementById('timeStatus');
+        const garden = document.getElementById('garden');
+        const statusMessage = document.getElementById('statusMessage');
+        const startBtn = document.getElementById('startBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const retryBtn = document.getElementById('retryBtn');
+        const calibrateBtn = document.getElementById('calibrateBtn');
+        const treeCountElement = document.getElementById('treeCount');
+        const appleCountElement = document.getElementById('appleCount');
+        const noTreesMessage = document.getElementById('noTreesMessage');
+        const notification = document.getElementById('notification');
+        const notificationText = document.getElementById('notificationText');
+        const noiseBaseElement = document.getElementById('noiseBase');
+        const calibrationInfo = document.getElementById('calibrationInfo');
+        const waveformCanvasElement = document.getElementById('waveformCanvas');
+        
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 初始化波形图
+            waveformCanvas = waveformCanvasElement;
+            waveformCtx = waveformCanvas.getContext('2d');
+            resizeWaveformCanvas();
+            
+            // 设置目标分贝滑块事件
+            dbTarget.addEventListener('input', function() {
+                targetDb = parseInt(this.value);
+                targetValue.textContent = `${targetDb} 分贝`;
+                updateStatusMessage();
+                saveState();
+            });
+            
+            // 开始监测按钮事件
+            startBtn.addEventListener('click', toggleMonitoring);
+            
+            // 重置按钮事件
+            resetBtn.addEventListener('click', resetGarden);
+            
+            // 重新授权按钮事件
+            retryBtn.addEventListener('click', requestMicrophonePermission);
+            
+            // 校准按钮事件
+            calibrateBtn.addEventListener('click', calibrateNoiseLevel);
+            
+            // 加载保存的状态
+            loadState();
+            
+            // 初始化状态消息
+            updateStatusMessage();
+            
+            // 窗口大小变化时调整波形图
+            window.addEventListener('resize', resizeWaveformCanvas);
+            
+            // 检查Web Audio API支持
+            if (!window.AudioContext && !window.webkitAudioContext) {
+                showNotification('您的浏览器不支持Web Audio API，部分功能可能无法使用', 'error');
+            }
+        });
+        
+        // 调整波形图画布大小
+        function resizeWaveformCanvas() {
+            const container = waveformCanvas.parentElement;
+            waveformCanvas.width = container.clientWidth;
+            waveformCanvas.height = container.clientHeight;
+        }
+        
+        // 绘制音量波形图
+        function drawWaveform(volumeData) {
+            if (!waveformCtx) return;
+            
+            const width = waveformCanvas.width;
+            const height = waveformCanvas.height;
+            
+            // 清除画布
+            waveformCtx.clearRect(0, 0, width, height);
+            
+            // 绘制背景
+            waveformCtx.fillStyle = '#f5f5f5';
+            waveformCtx.fillRect(0, 0, width, height);
+            
+            // 根据音量绘制波形
+            const barCount = 40;
+            const barWidth = width / barCount;
+            const maxVolume = 60;
+            
+            for (let i = 0; i < barCount; i++) {
+                // 生成随机高度模拟波形
+                const volumeIndex = Math.floor((i / barCount) * volumeData.length);
+                const volume = volumeData[volumeIndex] || 0;
+                const normalizedVolume = Math.min(volume / maxVolume, 1);
+                
+                // 计算条形高度
+                const barHeight = normalizedVolume * height * 0.8;
+                const x = i * barWidth;
+                const y = height - barHeight;
+                
+                // 根据音量设置颜色
+                let color;
+                if (currentDb >= targetDb) {
+                    color = '#4caf50';
+                } else if (currentDb >= targetDb * 0.7) {
+                    color = '#ff9800';
+                } else {
+                    color = '#f44336';
+                }
+                
+                // 绘制条形
+                waveformCtx.fillStyle = color;
+                waveformCtx.fillRect(x, y, barWidth - 2, barHeight);
+            }
+        }
+        
+        // 切换监测状态
+        async function toggleMonitoring() {
+            if (!isMonitoring) {
+                try {
+                    // 请求麦克风权限并开始监测
+                    await startMonitoring();
+                    startBtn.innerHTML = '<i class="fas fa-pause"></i> 暂停监测';
+                    startBtn.style.backgroundColor = '#ff9800';
+                    isMonitoring = true;
+                    updateStatusMessage();
+                    showNotification('监测已开始，请大声朗读！');
+                } catch (error) {
+                    console.error('开始监测失败:', error);
+                    // 确保状态正确重置
+                    stopMonitoring();
+                    startBtn.innerHTML = '<i class="fas fa-play"></i> 开始监测';
+                    startBtn.style.backgroundColor = '#4a7c2a';
+                    isMonitoring = false;
+                    micStatus.textContent = '访问失败';
+                    retryBtn.style.display = 'inline-flex';
+                    updateStatusMessage();
+                    showNotification('无法访问麦克风，请检查权限设置', 'error');
+                }
+            } else {
+                // 停止监测
+                stopMonitoring();
+                startBtn.innerHTML = '<i class="fas fa-play"></i> 开始监测';
+                startBtn.style.backgroundColor = '#4a7c2a';
+                isMonitoring = false;
+                updateStatusMessage();
+                showNotification('监测已暂停');
+            }
+        }
+        
+        // 请求麦克风权限
+        async function requestMicrophonePermission() {
+            try {
+                // 先尝试停止现有监测
+                stopMonitoring();
+                
+                // 请求麦克风权限（关闭降噪和回声消除）
+                const stream = await navigator.mediaDevices.getUserMedia({ 
+                    audio: { 
+                        echoCancellation: false, // 关闭回声消除
+                        noiseSuppression: false, // 关闭噪声抑制
+                        autoGainControl: false   // 关闭自动增益控制
+                    } 
+                });
+                
+                // 停止流以避免占用
+                stream.getTracks().forEach(track => track.stop());
+                
+                // 隐藏重试按钮
+                retryBtn.style.display = 'none';
+                
+                showNotification('麦克风权限已获取，请点击开始监测');
+                micStatus.textContent = '权限已获取';
+            } catch (error) {
+                console.error('获取麦克风权限失败:', error);
+                micStatus.textContent = '权限被拒绝';
+                showNotification('麦克风权限被拒绝，请允许访问麦克风', 'error');
+            }
+        }
+        
+        // 开始监测麦克风
+        async function startMonitoring() {
+            // 如果已经存在动画帧，先取消
+            if (monitoringAnimationFrame) {
+                cancelAnimationFrame(monitoringAnimationFrame);
+                monitoringAnimationFrame = null;
+            }
+            
+            // 获取麦克风访问权限（关闭降噪功能）
+            const stream = await navigator.mediaDevices.getUserMedia({ 
+                audio: { 
+                    echoCancellation: false, // 关闭回声消除
+                    noiseSuppression: false, // 关闭噪声抑制
+                    autoGainControl: false   // 关闭自动增益控制
+                } 
+            });
+            
+            // 创建音频上下文
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            analyser = audioContext.createAnalyser();
+            microphone = audioContext.createMediaStreamSource(stream);
+            
+            // 连接分析器
+            microphone.connect(analyser);
+            analyser.fftSize = 2048;
+            analyser.smoothingTimeConstant = 0.8;
+            
+            micStatus.textContent = '已连接';
+            retryBtn.style.display = 'none';
+            
+            // 开始监测音量
+            startVolumeMonitoring();
+        }
+        
+        // 开始音量监测（使用requestAnimationFrame）
+        function startVolumeMonitoring() {
+            function measureVolume() {
+                try {
+                    const dataArray = new Uint8Array(analyser.frequencyBinCount);
+                    analyser.getByteFrequencyData(dataArray);
+                    
+                    // 计算RMS（均方根）值
+                    let sum = 0;
+                    for (let i = 0; i < dataArray.length; i++) {
+                        sum += dataArray[i] * dataArray[i];
+                    }
+                    const rms = Math.sqrt(sum / dataArray.length);
+                    
+                    // 改进分贝计算：考虑校准的噪音基准
+                    const adjustedRms = Math.max(0, rms - noiseBaseLevel);
+                    const db = 20 * Math.log10(adjustedRms / 128 + 0.001) + 60;
+                    
+                    // 将分贝值限制在0-60范围内
+                    currentDb = Math.max(0, Math.min(60, Math.round(db)));
+                    
+                    // 更新显示
+                    updateDbDisplay();
+                    
+                    // 绘制波形图
+                    drawWaveform(dataArray);
+                    
+                    // 检查是否达到目标分贝
+                    checkThreshold();
+                    
+                    // 继续监测
+                    if (isMonitoring && audioContext && audioContext.state !== 'closed') {
+                        monitoringAnimationFrame = requestAnimationFrame(measureVolume);
+                    }
+                } catch (error) {
+                    console.error('音量测量错误:', error);
+                    stopMonitoring();
+                }
+            }
+            
+            monitoringAnimationFrame = requestAnimationFrame(measureVolume);
+        }
+        
+        // 停止监测
+        function stopMonitoring() {
+            if (monitoringAnimationFrame) {
+                cancelAnimationFrame(monitoringAnimationFrame);
+                monitoringAnimationFrame = null;
+            }
+            
+            if (audioContext && audioContext.state !== 'closed') {
+                try {
+                    audioContext.close();
+                } catch (e) {
+                    console.log('关闭音频上下文失败:', e);
+                }
+            }
+            
+            micStatus.textContent = '已暂停';
+            currentDb = 0;
+            aboveThresholdTime = 0;
+            belowThresholdTime = 0;
+            updateDbDisplay();
+            timeCount.textContent = '0';
+            timeProgress.style.width = '0%';
+            timeStatus.textContent = '请大声朗读以达到目标分贝';
+            timeStatus.style.color = '#666';
+            
+            // 清除波形图
+            if (waveformCtx) {
+                waveformCtx.clearRect(0, 0, waveformCanvas.width, waveformCanvas.height);
+            }
+        }
+        
+        // 校准环境噪音
+        function calibrateNoiseLevel() {
+            if (isMonitoring) {
+                showNotification('请先暂停监测，然后在校准过程中保持安静', 'warning');
+                return;
+            }
+            
+            calibrateBtn.disabled = true;
+            calibrateBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 校准中...';
+            
+            // 临时开启监测以测量环境噪音
+            navigator.mediaDevices.getUserMedia({ 
+                audio: { 
+                    echoCancellation: false,
+                    noiseSuppression: false,
+                    autoGainControl: false
+                } 
+            }).then(stream => {
+                const tempAudioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const tempAnalyser = tempAudioContext.createAnalyser();
+                const tempMicrophone = tempAudioContext.createMediaStreamSource(stream);
+                
+                tempMicrophone.connect(tempAnalyser);
+                tempAnalyser.fftSize = 2048;
+                
+                // 测量环境噪音
+                const measurements = [];
+                const measureInterval = setInterval(() => {
+                    const dataArray = new Uint8Array(tempAnalyser.frequencyBinCount);
+                    tempAnalyser.getByteFrequencyData(dataArray);
+                    
+                    let sum = 0;
+                    for (let i = 0; i < dataArray.length; i++) {
+                        sum += dataArray[i] * dataArray[i];
+                    }
+                    const rms = Math.sqrt(sum / dataArray.length);
+                    measurements.push(rms);
+                }, 100);
+                
+                // 3秒后计算平均噪音水平
+                setTimeout(() => {
+                    clearInterval(measureInterval);
+                    
+                    // 计算平均值
+                    const sum = measurements.reduce((a, b) => a + b, 0);
+                    const average = sum / measurements.length;
+                    
+                    // 设置噪音基准
+                    noiseBaseLevel = Math.round(average * 0.8); // 使用80%作为基准
+                    noiseBaseElement.textContent = noiseBaseLevel;
+                    calibrated = true;
+                    
+                    // 更新校准信息
+                    calibrationInfo.innerHTML = `
+                        当前环境噪音基准: <span id="noiseBase">${noiseBaseLevel}</span> 分贝
+                        <span style="color: #4caf50; margin-left: 10px;"><i class="fas fa-check"></i> 已校准</span>
+                    `;
+                    
+                    // 清理资源
+                    stream.getTracks().forEach(track => track.stop());
+                    tempAudioContext.close();
+                    
+                    // 恢复按钮
+                    calibrateBtn.disabled = false;
+                    calibrateBtn.innerHTML = '<i class="fas fa-compress-arrows-alt"></i> 校准环境噪音';
+                    
+                    showNotification(`环境噪音校准完成，基准值为${noiseBaseLevel}`);
+                    saveState();
+                }, 3000);
+            }).catch(error => {
+                console.error('校准失败:', error);
+                calibrateBtn.disabled = false;
+                calibrateBtn.innerHTML = '<i class="fas fa-compress-arrows-alt"></i> 校准环境噪音';
+                showNotification('校准失败，请检查麦克风权限', 'error');
+            });
+        }
+        
+        // 更新分贝显示
+        function updateDbDisplay() {
+            currentDbElement.textContent = currentDb;
+            dbValue.textContent = `${currentDb} 分贝`;
+            
+            // 更新分贝条
+            const percentage = Math.min((currentDb / 60) * 100, 100);
+            dbLevel.style.width = `${percentage}%`;
+            
+            // 更新ARIA属性
+            dbLevel.parentElement.setAttribute('aria-valuenow', currentDb);
+            
+            // 根据分贝值改变颜色提示
+            if (currentDb >= targetDb) {
+                dbLevel.style.backgroundColor = 'rgba(76, 175, 80, 0.7)';
+                dbValue.style.color = '#2e7d32';
+            } else if (currentDb >= targetDb * 0.7) {
+                dbLevel.style.backgroundColor = 'rgba(255, 152, 0, 0.7)';
+                dbValue.style.color = '#ef6c00';
+            } else {
+                dbLevel.style.backgroundColor = 'rgba(244, 67, 54, 0.7)';
+                dbValue.style.color = '#c62828';
+            }
+        }
+        
+        // 检查是否达到阈值
+        function checkThreshold() {
+            // 检查是否达到目标分贝
+            if (currentDb >= targetDb) {
+                aboveThresholdTime += 0.016; // 基于60fps的增量
+                belowThresholdTime = 0;
+                
+                // 更新时间和进度条
+                const progressPercentage = Math.min((aboveThresholdTime / 30) * 100, 100);
+                timeCount.textContent = Math.min(Math.round(aboveThresholdTime), 30);
+                timeProgress.style.width = `${progressPercentage}%`;
+                
+                // 如果持续30秒，添加一棵苹果树
+                if (aboveThresholdTime >= 30) {
+                    addAppleTree();
+                    aboveThresholdTime = 0;
+                    timeCount.textContent = '0';
+                    timeProgress.style.width = '0%';
+                }
+                
+                timeStatus.textContent = `加油！保持音量，${Math.round(30 - aboveThresholdTime)}秒后苹果树将生长！`;
+                timeStatus.style.color = '#4a7c2a';
+                
+            } else if (currentDb < 10) {
+                // 检查是否低于10分贝
+                belowThresholdTime += 0.016;
+                aboveThresholdTime = 0;
+                
+                // 更新时间和进度条
+                const progressPercentage = Math.min((belowThresholdTime / 30) * 100, 100);
+                timeCount.textContent = Math.min(Math.round(belowThresholdTime), 30);
+                timeProgress.style.width = `${progressPercentage}%`;
+                
+                // 如果持续30秒，移除一棵苹果树
+                if (belowThresholdTime >= 30 && treeCount > 0) {
+                    removeAppleTree();
+                    belowThresholdTime = 0;
+                    timeCount.textContent = '0';
+                    timeProgress.style.width = '0%';
+                }
+                
+                timeStatus.textContent = `声音太小了！${Math.round(30 - belowThresholdTime)}秒后苹果树可能会消失！`;
+                timeStatus.style.color = '#f44336';
+                
+            } else {
+                // 重置计时器
+                aboveThresholdTime = 0;
+                belowThresholdTime = 0;
+                timeCount.textContent = '0';
+                timeProgress.style.width = '0%';
+                timeStatus.textContent = '请调整音量以达到目标分贝';
+                timeStatus.style.color = '#666';
+            }
+        }
+        
+        // 添加一棵苹果树
+        function addAppleTree() {
+            // 统计当前小树数量（不包括大树）
+            const smallTrees = treeElements.filter(tree => !tree.classList.contains('large-tree'));
+            
+            // 如果已经有5棵小苹果树，合并成一棵大苹果树
+            if (smallTrees.length >= 5) {
+                // 移除所有小苹果树（只移除5棵）
+                const treesToRemove = smallTrees.slice(0, 5);
+                treesToRemove.forEach(tree => {
+                    if (tree.parentNode) {
+                        garden.removeChild(tree);
+                    }
+                    const index = treeElements.indexOf(tree);
+                    if (index > -1) {
+                        treeElements.splice(index, 1);
+                    }
+                });
+                
+                // 添加一棵大苹果树
+                const largeTree = document.createElement('div');
+                largeTree.className = 'tree large-tree growth-animation pulse';
+                largeTree.setAttribute('role', 'img');
+                largeTree.setAttribute('aria-label', '大苹果树');
+                largeTree.innerHTML = `
+                    <div class="tree-crown">
+                        <div class="apple apple-1"></div>
+                        <div class="apple apple-2"></div>
+                        <div class="apple apple-3"></div>
+                        <div class="apple apple-4"></div>
+                        <div class="apple apple-5"></div>
+                    </div>
+                    <div class="tree-trunk"></div>
+                `;
+                garden.appendChild(largeTree);
+                treeElements.push(largeTree);
+                
+                // 更新树计数和苹果计数
+                treeCount = treeElements.length;
+                appleCount = calculateTotalApples();
+                treeCountElement.textContent = treeCount;
+                appleCountElement.textContent = appleCount;
+                
+                // 隐藏"没有树"的消息
+                noTreesMessage.style.display = 'none';
+                
+                // 更新状态消息
+                statusMessage.innerHTML = '<i class="fas fa-trophy"></i> 太棒了！5棵小苹果树已合并成一棵大苹果树！继续朗读让果园更茂盛吧！';
+                statusMessage.style.backgroundColor = '#e8f5e9';
+                statusMessage.style.borderLeftColor = '#4caf50';
+                
+                // 播放生长音效
+                playGrowthSound();
+                
+                // 显示通知
+                showNotification('恭喜！小苹果树合并成了一棵大苹果树！');
+                
+                // 保存状态
+                saveState();
+                
+                return;
+            }
+            
+            // 添加一棵小苹果树
+            const tree = document.createElement('div');
+            tree.className = 'tree apple-tree growth-animation';
+            tree.setAttribute('role', 'img');
+            tree.setAttribute('aria-label', '小苹果树');
+            tree.innerHTML = `
+                <div class="tree-crown">
+                    <div class="apple apple-1"></div>
+                    <div class="apple apple-2"></div>
+                    <div class="apple apple-3"></div>
+                </div>
+                <div class="tree-trunk"></div>
+            `;
+            garden.appendChild(tree);
+            treeElements.push(tree);
+            
+            treeCount = treeElements.length;
+            appleCount = calculateTotalApples();
+            treeCountElement.textContent = treeCount;
+            appleCountElement.textContent = appleCount;
+            
+            // 隐藏"没有树"的消息
+            noTreesMessage.style.display = 'none';
+            
+            // 更新状态消息
+            const smallTreeCount = treeElements.filter(t => !t.classList.contains('large-tree')).length;
+            statusMessage.innerHTML = `<i class="fas fa-check-circle"></i> 恭喜！一棵苹果树长出来了！当前已有 ${treeCount} 棵苹果树，再长 ${5 - smallTreeCount} 棵小树就能合并成大苹果树！`;
+            statusMessage.style.backgroundColor = '#e8f5e9';
+            statusMessage.style.borderLeftColor = '#4caf50';
+            
+            // 播放生长音效
+            playGrowthSound();
+            
+            // 显示通知
+            showNotification('一棵苹果树长出来了！');
+            
+            // 保存状态
+            saveState();
+        }
+        
+        // 计算总苹果数
+        function calculateTotalApples() {
+            let total = 0;
+            treeElements.forEach(tree => {
+                if (tree.classList.contains('large-tree')) {
+                    total += 5; // 大树有5个苹果
+                } else {
+                    total += 3; // 小树有3个苹果
+                }
+            });
+            return total;
+        }
+        
+        // 移除一棵苹果树
+        function removeAppleTree() {
+            if (treeCount > 0 && treeElements.length > 0) {
+                // 优先移除小苹果树
+                const smallTrees = treeElements.filter(tree => !tree.classList.contains('large-tree'));
+                let treeToRemove;
+                
+                if (smallTrees.length > 0) {
+                    // 移除最后一棵小苹果树
+                    treeToRemove = smallTrees[smallTrees.length - 1];
+                } else {
+                    // 如果没有小树，移除一棵大树
+                    treeToRemove = treeElements[treeElements.length - 1];
+                }
+                
+                // 从DOM和数组中移除
+                if (treeToRemove.parentNode) {
+                    garden.removeChild(treeToRemove);
+                }
+                const index = treeElements.indexOf(treeToRemove);
+                if (index > -1) {
+                    treeElements.splice(index, 1);
+                }
+                
+                // 更新计数
+                treeCount = treeElements.length;
+                appleCount = calculateTotalApples();
+                treeCountElement.textContent = treeCount;
+                appleCountElement.textContent = appleCount;
+                
+                // 如果没有苹果树了，显示提示消息
+                if (treeCount === 0) {
+                    noTreesMessage.style.display = 'block';
+                }
+                
+                statusMessage.innerHTML = `<i class="fas fa-exclamation-triangle"></i> 一棵苹果树消失了！当前还有 ${treeCount} 棵苹果树，请保持朗读音量！`;
+                statusMessage.style.backgroundColor = '#ffebee';
+                statusMessage.style.borderLeftColor = '#f44336';
+                
+                showNotification('一棵苹果树消失了！');
+                
+                // 播放消失音效提示
+                playDisappearSound();
+                
+                // 保存状态
+                saveState();
+            }
+        }
+        
+        // 播放生长音效
+        function playGrowthSound() {
+            if (!audioContext || audioContext.state === 'closed') return;
+            
+            try {
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.setValueAtTime(523.25, audioContext.currentTime); // C5
+                oscillator.frequency.setValueAtTime(659.25, audioContext.currentTime + 0.1); // E5
+                
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.3);
+            } catch (e) {
+                console.log("无法播放音效:", e);
+            }
+        }
+        
+        // 播放消失音效
+        function playDisappearSound() {
+            if (!audioContext || audioContext.state === 'closed') return;
+            
+            try {
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.setValueAtTime(392.00, audioContext.currentTime); // G4
+                oscillator.frequency.setValueAtTime(329.63, audioContext.currentTime + 0.1); // E4
+                
+                gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.3);
+            } catch (e) {
+                console.log("无法播放音效:", e);
+            }
+        }
+        
+        // 重置花园
+        function resetGarden() {
+            if (confirm('确定要重置果园吗？所有苹果树都将被移除。')) {
+                // 移除所有苹果树
+                treeElements.forEach(tree => {
+                    if (tree.parentNode) {
+                        garden.removeChild(tree);
+                    }
+                });
+                
+                treeElements = [];
+                treeCount = 0;
+                appleCount = 0;
+                treeCountElement.textContent = treeCount;
+                appleCountElement.textContent = appleCount;
+                
+                // 显示"没有树"的消息
+                noTreesMessage.style.display = 'block';
+                
+                // 重置计时器
+                aboveThresholdTime = 0;
+                belowThresholdTime = 0;
+                timeCount.textContent = '0';
+                timeProgress.style.width = '0%';
+                
+                // 更新状态消息
+                updateStatusMessage();
+                
+                // 提示用户
+                statusMessage.innerHTML = '<i class="fas fa-info-circle"></i> 果园已重置！开始大声朗读，让苹果树重新长出来吧！';
+                statusMessage.style.backgroundColor = '#f0f9ff';
+                statusMessage.style.borderLeftColor = '#4a7c2a';
+                
+                // 显示通知
+                showNotification('果园已重置！');
+                
+                // 清除本地存储
+                localStorage.removeItem(STORAGE_KEY);
+            }
+        }
+        
+        // 更新状态消息
+        function updateStatusMessage() {
+            if (!isMonitoring) {
+                statusMessage.innerHTML = '准备好开始大声朗读了吗？点击"开始监测"按钮，当你的朗读声达到目标分贝并持续30秒，苹果树就会长出来！';
+                statusMessage.style.backgroundColor = '#f0f9ff';
+                statusMessage.style.borderLeftColor = '#4a7c2a';
+            } else {
+                statusMessage.innerHTML = `监测中... 请大声朗读，当前目标分贝为${targetDb}。达到目标分贝并持续30秒，苹果树就会生长！`;
+                statusMessage.style.backgroundColor = '#e8f5e9';
+                statusMessage.style.borderLeftColor = '#4caf50';
+            }
+        }
+        
+        // 显示通知
+        function showNotification(message, type = 'success') {
+            notificationText.textContent = message;
+            
+            // 根据类型设置通知样式
+            if (type === 'error') {
+                notification.style.backgroundColor = '#f44336';
+            } else if (type === 'warning') {
+                notification.style.backgroundColor = '#ff9800';
+            } else {
+                notification.style.backgroundColor = '#4a7c2a';
+            }
+            
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+        
+        // 保存状态到本地存储
+        function saveState() {
+            const state = {
+                treeCount: treeCount,
+                appleCount: appleCount,
+                targetDb: targetDb,
+                noiseBaseLevel: noiseBaseLevel,
+                calibrated: calibrated,
+                treeTypes: treeElements.map(tree => 
+                    tree.classList.contains('large-tree') ? 'large' : 'small'
+                )
+            };
+            
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+            } catch (e) {
+                console.error('保存状态失败:', e);
+            }
+        }
+        
+        // 从本地存储加载状态
+        function loadState() {
+            try {
+                const savedState = localStorage.getItem(STORAGE_KEY);
+                if (savedState) {
+                    const state = JSON.parse(savedState);
+                    
+                    // 恢复设置
+                    targetDb = state.targetDb || 30;
+                    dbTarget.value = targetDb;
+                    targetValue.textContent = `${targetDb} 分贝`;
+                    
+                    noiseBaseLevel = state.noiseBaseLevel || 0;
+                    calibrated = state.calibrated || false;
+                    noiseBaseElement.textContent = noiseBaseLevel;
+                    
+                    if (calibrated) {
+                        calibrationInfo.innerHTML = `
+                            当前环境噪音基准: <span id="noiseBase">${noiseBaseLevel}</span> 分贝
+                            <span style="color: #4caf50; margin-left: 10px;"><i class="fas fa-check"></i> 已校准</span>
+                        `;
+                    }
+                    
+                    // 恢复苹果树
+                    if (state.treeTypes && state.treeTypes.length > 0) {
+                        state.treeTypes.forEach(treeType => {
+                            const tree = document.createElement('div');
+                            
+                            if (treeType === 'large') {
+                                tree.className = 'tree large-tree';
+                                tree.setAttribute('role', 'img');
+                                tree.setAttribute('aria-label', '大苹果树');
+                                tree.innerHTML = `
+                                    <div class="tree-crown">
+                                        <div class="apple apple-1"></div>
+                                        <div class="apple apple-2"></div>
+                                        <div class="apple apple-3"></div>
+                                        <div class="apple apple-4"></div>
+                                        <div class="apple apple-5"></div>
+                                    </div>
+                                    <div class="tree-trunk"></div>
+                                `;
+                            } else {
+                                tree.className = 'tree apple-tree';
+                                tree.setAttribute('role', 'img');
+                                tree.setAttribute('aria-label', '小苹果树');
+                                tree.innerHTML = `
+                                    <div class="tree-crown">
+                                        <div class="apple apple-1"></div>
+                                        <div class="apple apple-2"></div>
+                                        <div class="apple apple-3"></div>
+                                    </div>
+                                    <div class="tree-trunk"></div>
+                                `;
+                            }
+                            
+                            garden.appendChild(tree);
+                            treeElements.push(tree);
+                        });
+                        
+                        treeCount = treeElements.length;
+                        appleCount = calculateTotalApples();
+                        treeCountElement.textContent = treeCount;
+                        appleCountElement.textContent = appleCount;
+                        
+                        noTreesMessage.style.display = 'none';
+                        
+                        statusMessage.innerHTML = `<i class="fas fa-check-circle"></i> 欢迎回来！已加载 ${treeCount} 棵苹果树和 ${appleCount} 个苹果。`;
+                        statusMessage.style.backgroundColor = '#e8f5e9';
+                        statusMessage.style.borderLeftColor = '#4caf50';
+                    }
+                    
+                    showNotification('已恢复上次的果园状态');
+                }
+            } catch (e) {
+                console.error('加载状态失败:', e);
+                // 如果加载失败，清除损坏的存储
+                localStorage.removeItem(STORAGE_KEY);
+            }
+        }
+        
+        // 页面卸载时的清理
+        window.addEventListener('beforeunload', function() {
+            stopMonitoring();
+            saveState();
+        });
+        
+        // 页面隐藏时的清理
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden && isMonitoring) {
+                // 页面隐藏时暂停监测以节省资源
+                stopMonitoring();
+                startBtn.innerHTML = '<i class="fas fa-play"></i> 继续监测';
+                startBtn.style.backgroundColor = '#4a7c2a';
+                isMonitoring = false;
+                updateStatusMessage();
+                showNotification('页面隐藏，监测已暂停', 'warning');
+            }
+        });
+        
+        // 错误处理
+        window.addEventListener('error', function(event) {
+            console.error('全局错误:', event.error);
+            showNotification('应用程序出现错误，请刷新页面重试', 'error');
+        });
+    </script>
+</body>
+</html>
